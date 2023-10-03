@@ -934,7 +934,7 @@ class _ContentScreenState extends State<ContentScreen>
                     child: TabBarView(
                       physics: const BouncingScrollPhysics(),
                       controller: tabController,
-                      children: const [
+                      children:  [
                         TabBarWidgetPage(),
                         TabBarWidgetSurah(),
 

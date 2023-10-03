@@ -6,6 +6,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/current_index.dart';
+import '../providers/quran.dart';
+import '../providers/show_overlay_provider.dart';
 
 
 class TabBarWidgetSurah extends StatefulWidget {
@@ -364,7 +369,6 @@ class _TabBarWidgetSurahState extends State<TabBarWidgetSurah> {
     "(The Overthrowing)",
     "(The Cleaving)",
   ];
-
   List<String> asmaAlSuwar = [
     "الفاتحة",
     "البقرة",
@@ -481,15 +485,137 @@ class _TabBarWidgetSurahState extends State<TabBarWidgetSurah> {
     "الفلق",
     "الناس"
   ];
+  List<int> numberStartSurah=[
+    1,//الفاتحة
+    2,//البقرة
+    50,//ال عمران
+    77,//النساء
+    106,//المائدة
+    128,//الانعام
+    151,//الاعراف
+    177,// الانفال
+    187,// التوبة
+    208,//بونس
+    221,//هود
+    235,//يوسف
+    249,//الرعد
+    255,//ابراهيم
+    262,//الحجر
+    267,//النحل
+    282,//الاسراء
+    293,//الكهف
+    305,// ميريم
+    312,// طه
+    322,//الانبياء
+    332,//الحج
+    342,//المؤمنون
+    350,//النور
+    359,//الفرقان
+    367,// الشعراء
+    377,//النمل
+    385,// القصص
+    396,//العنكبوت
+    404,//الروم
+    411,//لقمان
+    415,//السجدة
+    418,//الاحزاب
+    428,//سبأ
+    434,// فاطر
+    440,//يس
+    446,// الصافات
+    453,//ص
+    458,// الزمر
+    467,// غافر
+    477,// فصلت
+    483,// الشورى
+    489,//الزخرف
+    496,//الدخان
+    499,// الجاثية
+    502,//الاحقاف
+    507,//محمد
+    511,// الفتح
+    515,// الحجرات
+    518,//ق
+    520,// الذاريات
+    523,//الطور
+    526,// النجم
+    528,// القمر
+    531,//الرحمن
+    534,//الواقعة
+    537,//الحديد
+    542,//المجادلة
+    545,//الحشر
+    549,//الممتحنة
+    551,//الصف
+    553,//الجمعة
+    554,//المنافقون
+    556,// التغابن
+    558,// الطلاق
+    560,//التحريم
+    562,// الملك
+    564,// القلم
+    566,//الحاقة
+    568,//المعارج
+    570,//نوح
+    572,// الجن
+    574,// المزمل
+    575,//المدثر
+    577,//القيامة
+    578,// الانسان
+    580,// المرسلات
+    582,// النبأ
+    583,//النازعات
+    585,//عبس
+    586,//التكوير
+    587,//الانفطار
+    587,//المطففين
+    589,// الانشقاق
+    590,//البروج
+    591,//الطارق
+    591,//الاعلى
+    592,//الغاشية
+    593,// الفجر
+    594,// البلد
+    595,// الشمس
+    595,// الليل
+    596,//الضحى
+    596,// الشرح
+    597,//التين
+    597,// العلق
+    598,//القدر
+    598,//البينة
+    599,// الزلزلة
+    599,// العاديات
+    600,//القارعة
+    600,// التكاثر
+    601,// العصر
+    601,// الهمزة
+    601,// الفيل
+    602,//قريش
+    602,//الماعون
+    602,//الكوثر
+    603,//الكافرون
+    603,//النصر
+    603,//المسد
+    604,//الاخلاص
+    604,//الفلق
+    604,//الناس
+  ];
 
   @override
   void initState() {
     // TODO: implement initState
+    print(numberStartSurah.length);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final quranListenFalse = Provider.of<Quran>(context, listen: false);
+    // final drawerController=Provider.of<ShowMenu>(context).drawerController;
+    final overlay = Provider.of<ShowOverlayProvider>(context, listen: false);
+    final controllerCurrentIndex=Provider.of<CurrentIndex>(context);
+    final currentIndex=controllerCurrentIndex.currentIndex;
     return GestureDetector(
       onTap: () {},
       child: Column(
@@ -502,8 +628,10 @@ class _TabBarWidgetSurahState extends State<TabBarWidgetSurah> {
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
-                      print(asmaAlSuwarEnglish[index]);
-                      // Get.to(HomeScreen(drawerController: ,));
+                      quranListenFalse.changePage(numberStartSurah[index]-1);
+                      overlay.toggleisShowOverlay();
+                      controllerCurrentIndex.updateDrawerController(0);
+                      overlay.toggleisShowOverlay();
                     },
                     child: SingleChildScrollView(
                       child: Column(

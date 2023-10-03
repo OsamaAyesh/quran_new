@@ -4,15 +4,24 @@ import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:quran11/providers/current_index.dart';
+import 'package:quran11/providers/show_menu.dart';
+import 'package:quran11/providers/show_overlay_provider.dart';
+import 'package:quran11/screens/app/home_screen.dart';
 
 import '../providers/quran.dart';
+import '../screens/app/menu_page.dart';
+import 'info_overlay/bottom_overlay.dart';
 
 
 
 class TabBarWidgetPage extends StatefulWidget {
-  const TabBarWidgetPage({super.key});
+  const TabBarWidgetPage({super.key,this.drawerController});
+  final drawerController;
 
   @override
   State<TabBarWidgetPage> createState() => _TabBarWidgetPageState();
@@ -1254,101 +1263,112 @@ class _TabBarWidgetPageState extends State<TabBarWidgetPage> {
   @override
   Widget build(BuildContext context) {
     final quranListenFalse = Provider.of<Quran>(context, listen: false);
-
-    return  Expanded(
-      child: ListView.builder(
-        padding: EdgeInsets.zero,
-        itemCount: 604,
-        physics: const BouncingScrollPhysics(),
-        itemBuilder: (context, index) {
-          return GestureDetector(
-            onTap: () {
-              // Get.to(HomeScreenNumber3());
-              quranListenFalse.changePage(index);
-            },
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 10.h,
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 34.w),
-                  child: Container(
-                    height: 55.h,
-                    decoration: BoxDecoration(
-                        color: const Color(0XFFF2EFE0),
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Row(
-                      children: [
-                        SizedBox(width: 15.w,),
-                        Center(
-                          child: Image.asset(
-                            MaqiaOrMadania[index]=="md"?"assets/mosq.png":"assets/qaba.png",
-                            height: 50.h,
-                            width: 60.w,
-                            fit: BoxFit.contain,
-                          ),
+    // final drawerController=Provider.of<ShowMenu>(context).drawerController;
+    final overlay = Provider.of<ShowOverlayProvider>(context, listen: false);
+    final controllerCurrentIndex=Provider.of<CurrentIndex>(context);
+    final currentIndex=controllerCurrentIndex.currentIndex;
+    return  Column(
+      children: [
+    Expanded(
+      flex: 1,
+    child: ListView.builder(
+    padding: EdgeInsets.zero,
+      itemCount: 604,
+      physics: const BouncingScrollPhysics(),
+      itemBuilder: (context, index) {
+        return GestureDetector(
+          onTap: () {
+            // Get.to(HomeScreenNumber3());
+            quranListenFalse.changePage(index);
+            overlay.toggleisShowOverlay();
+            controllerCurrentIndex.updateDrawerController(0);
+            overlay.toggleisShowOverlay();
+          },
+          child: Column(
+            children: [
+              SizedBox(
+                height: 10.h,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 34.w),
+                child: Container(
+                  height: 55.h,
+                  decoration: BoxDecoration(
+                      color: const Color(0XFFF2EFE0),
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Row(
+                    children: [
+                      SizedBox(width: 15.w,),
+                      Center(
+                        child: Image.asset(
+                          MaqiaOrMadania[index]=="md"?"assets/mosq.png":"assets/qaba.png",
+                          height: 50.h,
+                          width: 60.w,
+                          fit: BoxFit.contain,
                         ),
-                        const Expanded(child: SizedBox()),
-                        AutoSizeText(
-                          SurahPages[index],
-                          style: GoogleFonts.tajawal(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                              color: Colors.brown),
-                          minFontSize: 1,
-                          textAlign: TextAlign.start,
-                          maxLines: 1,
-                        ),
-                        SizedBox(
-                          width: 11.w,
-                        ),
-                        SizedBox(
-                          height: 36.h,
-                          width: 36.w,
-                          child: Stack(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 8.w),
-                                child: Center(
-                                  child: AutoSizeText(
-                                    "${index+1}",
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 14,
-                                        color: Colors.brown,
-                                        fontWeight:
-                                        FontWeight.w500),
-                                    minFontSize: 1,
-                                    maxLines: 1,
-                                  ),
+                      ),
+                      const Expanded(child: SizedBox()),
+                      AutoSizeText(
+                        SurahPages[index],
+                        style: GoogleFonts.tajawal(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            color: Colors.brown),
+                        minFontSize: 1,
+                        textAlign: TextAlign.start,
+                        maxLines: 1,
+                      ),
+                      SizedBox(
+                        width: 11.w,
+                      ),
+                      SizedBox(
+                        height: 36.h,
+                        width: 36.w,
+                        child: Stack(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 8.w),
+                              child: Center(
+                                child: AutoSizeText(
+                                  "${index+1}",
+                                  style: GoogleFonts.poppins(
+                                      fontSize: 14,
+                                      color: Colors.brown,
+                                      fontWeight:
+                                      FontWeight.w500),
+                                  minFontSize: 1,
+                                  maxLines: 1,
                                 ),
                               ),
-                              Center(
-                                child: SvgPicture.asset(
-                                  "assets/numberPageImage.svg",
-                                  height: 36.h,
-                                  width: 36.w,
-                                  // ignore: deprecated_member_use
-                                  color: Colors.brown,
-                                ),
+                            ),
+                            Center(
+                              child: SvgPicture.asset(
+                                "assets/numberPageImage.svg",
+                                height: 36.h,
+                                width: 36.w,
+                                // ignore: deprecated_member_use
+                                color: Colors.brown,
                               ),
+                            ),
 
-                            ],
-                          ),
+                          ],
                         ),
-                        SizedBox(
-                          width: 5.w,
-                        ),
-                      ],
-                    ),
+                      ),
+                      SizedBox(
+                        width: 5.w,
+                      ),
+                    ],
                   ),
                 ),
-              ],
-            ),
-          );
-        },
-      ),
+              ),
+            ],
+          ),
+        );
+      },
+    ),
+    )
+      ],
     );
   }
 }

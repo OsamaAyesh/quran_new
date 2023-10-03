@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:quran11/providers/show_menu.dart';
 
 import 'bottom_overlay.dart';
 import 'landscape_overlay.dart';
@@ -10,17 +12,18 @@ class InfoOverlay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isLandscape = MediaQuery.of(context).size.width > 630;
+    final drawerController=Provider.of<ShowMenu>(context).drawerController;
 
     return Column(
       mainAxisAlignment:
           isLandscape ? MainAxisAlignment.end : MainAxisAlignment.spaceBetween,
       children: isLandscape
           ? [
-              const LandscapeOverlay(),
+               LandscapeOverlay(),
             ]
-          : const [
+          :  [
               TopOverlay(),
-              BottomOverlay(),
+              BottomOverlay(drawerController: drawerController),
             ],
     );
   }

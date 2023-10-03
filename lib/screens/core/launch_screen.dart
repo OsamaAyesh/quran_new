@@ -30,6 +30,7 @@ class _LaunchScreenState extends State<LaunchScreen> {
       // if(SharedPrefController().getValue(PrefKeys.pageSaveFromUser.name)==null){
       //   SharedPrefController().setValue(PrefKeys.pageSaveFromUser.name, 2);
       // }
+
       Get.offAll(() =>const  MyHomePage());
     });
     super.initState();

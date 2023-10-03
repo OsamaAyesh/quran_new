@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:provider/provider.dart';
+import 'package:quran11/providers/current_index.dart';
 import 'package:quran11/screens/app/contents_screen.dart';
 import 'package:quran11/screens/app/qiplah/qiplah_screen.dart';
 import 'package:quran11/screens/app/search_screen.dart';
@@ -23,7 +24,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   // ignore: prefer_typing_uninitialized_variables
-  late final drawerController  ;
 
 
 
@@ -37,7 +37,8 @@ class _MyHomePageState extends State<MyHomePage> {
     // TODO: implement dispose
     super.dispose();
   }
-  int currentIndex = 0;
+  // int currentIndex = 0;
+  late int currentIndex;
   // List<Widget> widgetsScreen=[
   //   HomeScreen(),
   //   QiblahCompass(),
@@ -47,8 +48,12 @@ class _MyHomePageState extends State<MyHomePage> {
   // ];
   @override
   Widget build(BuildContext context) {
-    // final myController = Provider.of<ShowMenu>(context);
-    // drawerController = myController.drawerController;
+    final myController = Provider.of<ShowMenu>(context);
+    final drawerController = myController.drawerController;
+    final controllerCurrentIndex=Provider.of<CurrentIndex>(context);
+    currentIndex=controllerCurrentIndex.currentIndex;
+
+
 
 
     // setState(() {
@@ -57,11 +62,10 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       backgroundColor: Colors.brown,
       body: ZoomDrawer(
-        controller: drawerController,
+        controller:drawerController ,
         menuScreen: MenuScreen(setIndex: (index) {
           setState(() {
-            currentIndex = index;
-
+            controllerCurrentIndex.updateDrawerController(index);
           });
         },),
         mainScreen: currentScreen(),
@@ -82,7 +86,9 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
   Widget currentScreen() {
-
+    final myController = Provider.of<ShowMenu>(context);
+    final drawerController = myController.drawerController;
+    final currentIndex=Provider.of<CurrentIndex>(context).currentIndex;
     if(currentIndex==0){
       return HomeScreen(drawerController:drawerController ,);
 
