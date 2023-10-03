@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:quran11/providers/show_menu.dart';
 import 'package:quran11/widgets/info_overlay/search_button.dart';
 
 import '../../core/colors.dart';
@@ -17,18 +18,30 @@ import '../go_to_page_popup.dart';
 import '../horizental_divider.dart';
 import '../vertical_divider.dart';
 
-class BottomOverlay extends StatelessWidget {
+class BottomOverlay extends StatefulWidget {
   const BottomOverlay({Key? key}) : super(key: key);
 
+  @override
+  State<BottomOverlay> createState() => _BottomOverlayState();
+}
+
+class _BottomOverlayState extends State<BottomOverlay> {
   @override
   Widget build(BuildContext context) {
     final quran = Provider.of<Quran>(context, listen: false);
     final bookMark = Provider.of<BookMarkProvider>(context);
     final overlay = Provider.of<ShowOverlayProvider>(context, listen: false);
+    final drawerController=Provider.of<ShowMenu>(context).drawerController;
 
     void _goToBookMark() {
       quran.goToPage(bookMark.markPage-1);
       overlay.toggleisShowOverlay();
+    }
+    void _goToMenu(){
+      overlay.toggleisShowOverlay();
+      drawerController.toggle!();
+
+
     }
 
     return CustomContainer(
@@ -109,9 +122,10 @@ class BottomOverlay extends StatelessWidget {
               children: [
                 Expanded(
                   child: TextButton.icon(
-                    onPressed: () {
-                      // Navigator.of(context).pushNamed('/index');
+                    onPressed: (){
+                      _goToMenu();
                     },
+                      // Navigator.of(context).pushNamed('/index');
                     icon:  Text(
                       AppConstant.index,
                       style: textStyle,

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:quran11/screens/app/my_home_page.dart';
 
 import '../../core/app_asset.dart';
 import '../app/home_screen.dart';
@@ -29,7 +30,7 @@ class _LaunchScreenState extends State<LaunchScreen> {
       // if(SharedPrefController().getValue(PrefKeys.pageSaveFromUser.name)==null){
       //   SharedPrefController().setValue(PrefKeys.pageSaveFromUser.name, 2);
       // }
-      Get.offAll(() =>const  HomeScreen());
+      Get.offAll(() =>const  MyHomePage());
     });
     super.initState();
   }

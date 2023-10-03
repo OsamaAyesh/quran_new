@@ -7,7 +7,8 @@ import '../../core/colors.dart';
 import '../../quran/ayat.dart';
 
 class SearchScreen extends StatefulWidget {
-  const SearchScreen({super.key});
+  const SearchScreen({super.key,this.drawerController});
+  final drawerController;
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();

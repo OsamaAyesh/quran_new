@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../../core/colors.dart';
 import '../../providers/quran.dart';
+import '../../providers/show_menu.dart';
 import '../../providers/show_overlay_provider.dart';
 import '../../quran/page_data.dart';
 import '../../widgets/custom_toast.dart';
@@ -12,9 +13,15 @@ import '../../widgets/info_overlay/info_overlay.dart';
 import '../../widgets/marker.dart';
 import '../../widgets/quran_page.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key,this.drawerController}) : super(key: key);
+  final drawerController;
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final quran = Provider.of<Quran>(context);
@@ -24,14 +31,17 @@ class HomeScreen extends StatelessWidget {
     final isLandscape = size.aspectRatio > 0.54;
     final isKeyboardOpen = MediaQuery.of(context).viewInsets.bottom > 0;
 
-    return SafeArea(
-      child: GestureDetector(
-        onTap: overlay.toggleisShowOverlay,
-        child: Scaffold(
-          // backgroundColor:
-          //     isLandscape && size.width > 500 ? ColorsC.blackColor : null,
-          
-          body: Center(
+    return GestureDetector(
+      onTap: overlay.toggleisShowOverlay,
+      onDoubleTap: (){
+        // widget.drawerController.toggle();
+      },
+      child: Scaffold(
+        // backgroundColor:
+        //     isLandscape && size.width > 500 ? ColorsC.blackColor : null,
+        // backgroundColor: ColorsC.brownColor,
+        body: SafeArea(
+          child: Center(
             child: Stack(
               alignment: Alignment.center,
               children: [
