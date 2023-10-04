@@ -5,7 +5,7 @@ class CurrentIndex extends ChangeNotifier {
   late int currentIndex;
 
   CurrentIndex() {
-    currentIndex = 1;
+    currentIndex = 0;
   }
 
   void updateDrawerController(int newIndex) {

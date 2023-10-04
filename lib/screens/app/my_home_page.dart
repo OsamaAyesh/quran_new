@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:provider/provider.dart';
 import 'package:quran11/providers/current_index.dart';
+import 'package:quran11/screens/app/azkar_screen.dart';
 import 'package:quran11/screens/app/contents_screen.dart';
 import 'package:quran11/screens/app/qiplah/qiplah_screen.dart';
 import 'package:quran11/screens/app/search_screen.dart';
@@ -80,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
         style: DrawerStyle.defaultStyle,
         isRtl: true,
         angle: 0,
-        duration: const Duration(milliseconds: 500),
+        duration: const Duration(milliseconds: 400),
         menuScreenOverlayColor: const Color(0XFF9F8876),
       ),
     );
@@ -99,13 +100,13 @@ class _MyHomePageState extends State<MyHomePage> {
       return ContentScreen(drawerController: drawerController,);
 
     }else if(currentIndex==3){
-      return  HomeScreen(drawerController: drawerController,);
+      return  AzkarScreen(drawerController: drawerController,);
 
     }else if(currentIndex==4){
       return  HomeScreen(drawerController: drawerController,);
 
     }else{
-      return HomeScreen(drawerController: drawerController,);
+      return AzkarScreen(drawerController: drawerController,);
 
     }
 

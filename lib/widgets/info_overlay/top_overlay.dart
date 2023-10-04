@@ -10,7 +10,7 @@ class TopOverlay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const CustomContainer(
-      offsetY: -4,
+      offsetY: -1.5,
       padding:  EdgeInsets.all(10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
