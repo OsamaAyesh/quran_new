@@ -5,8 +5,8 @@ import 'package:quran11/providers/current_index.dart';
 import 'package:quran11/screens/app/azkar_screen.dart';
 import 'package:quran11/screens/app/contents_screen.dart';
 import 'package:quran11/screens/app/qiplah/qiplah_screen.dart';
-import 'package:quran11/screens/app/search_screen.dart';
-import 'package:quran11/widgets/info_overlay/bottom_overlay.dart';
+import 'package:quran11/screens/app/time_salah.dart';
+
 
 import '../../core/colors.dart';
 import '../../providers/show_menu.dart';
@@ -100,10 +100,10 @@ class _MyHomePageState extends State<MyHomePage> {
       return ContentScreen(drawerController: drawerController,);
 
     }else if(currentIndex==3){
-      return  AzkarScreen(drawerController: drawerController,);
+      return  TimeSalah(drawerController: drawerController,);
 
     }else if(currentIndex==4){
-      return  HomeScreen(drawerController: drawerController,);
+      return  TimeSalah(drawerController: drawerController,);
 
     }else{
       return AzkarScreen(drawerController: drawerController,);

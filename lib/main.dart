@@ -1,4 +1,5 @@
 
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -6,6 +7,7 @@ import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:provider/provider.dart';
 import 'package:quran11/providers/bookmark.dart';
 import 'package:quran11/providers/current_index.dart';
+import 'package:quran11/providers/current_location.dart';
 import 'package:quran11/providers/show_menu.dart';
 import 'package:quran11/providers/toast.dart';
 import 'package:quran11/screens/core/launch_screen.dart';
@@ -23,6 +25,7 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (context)=>CurrentLocation()),
         ChangeNotifierProvider<CurrentIndex>(create: (context) => CurrentIndex()),
         ChangeNotifierProvider<ShowMenu>(create: (context) => ShowMenu()),
         ChangeNotifierProvider<ShowOverlayProvider>(
